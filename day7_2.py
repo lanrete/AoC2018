@@ -87,7 +87,7 @@ class Graph(object):
             time_tracking.extend(new_task_tracking)
 
             if current_task:
-                min_ph = 5000
+                min_ph = 1e10
                 next_task_ind = None
                 for ind, time in enumerate(time_tracking):
                     if time < min_ph:
