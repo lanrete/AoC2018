@@ -11,19 +11,15 @@ else:
 
 def process_tree(ind, number_list):
     ans = 0
-    if number_list[ind] == 0:
-        meta_number = number_list[ind + 1]
-        return sum(number_list[ind + 2:ind + 2 + meta_number]), ind + 2 + meta_number
-    else:
-        sub_tree = number_list[ind]
-        meta_number = number_list[ind + 1]
-        ind += 2
-        for i in range(sub_tree):
-            sub_tree_ans, new_ind = process_tree(ind, number_list)
-            ans += sub_tree_ans
-            ind = new_ind
-        ans += sum(number_list[ind:ind + meta_number])
-        return ans, ind + meta_number
+    sub_tree = number_list[ind]
+    meta_number = number_list[ind + 1]
+    ind += 2
+    for i in range(sub_tree):
+        sub_tree_ans, new_ind = process_tree(ind, number_list)
+        ans += sub_tree_ans
+        ind = new_ind
+    ans += sum(number_list[ind:ind + meta_number])
+    return ans, ind + meta_number
 
 
 def process_data(s):
