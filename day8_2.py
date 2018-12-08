@@ -9,7 +9,7 @@ else:
     suffix = ''
 
 
-def process_tree(ind, number_list):
+def get_value(ind, number_list):
     ans = 0
     if number_list[ind] == 0:
         meta_number = number_list[ind + 1]
@@ -18,18 +18,22 @@ def process_tree(ind, number_list):
         sub_tree = number_list[ind]
         meta_number = number_list[ind + 1]
         ind += 2
+        sub_tree_value = []
         for i in range(sub_tree):
-            sub_tree_ans, new_ind = process_tree(ind, number_list)
-            ans += sub_tree_ans
+            sub_tree_ans, new_ind = get_value(ind, number_list)
+            sub_tree_value.append(sub_tree_ans)
             ind = new_ind
-        ans += sum(number_list[ind:ind + meta_number])
+        for i in range(ind, ind+meta_number):
+            index = number_list[i]
+            if index <= sub_tree:
+                ans += sub_tree_value[index - 1]
         return ans, ind + meta_number
 
 
 def process_data(s):
     number_list = [int(_) for _ in s.split(' ')]
 
-    ans, ind = process_tree(0, number_list)
+    ans, ind = get_value(0, number_list)
     print(f'Answer is ==> {ans}')
 
     return ans
